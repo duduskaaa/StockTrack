@@ -30,7 +30,7 @@ public class OperationDAO implements BaseDAO<Operation> {
     }
 
     @Override
-    public void read() throws SQLException{
+    public void read(Object o) throws SQLException{
         pst = manager.prepareStatement(
                 "SELECT * FROM operations"
         );
@@ -41,7 +41,7 @@ public class OperationDAO implements BaseDAO<Operation> {
         int columnCount = meta.getColumnCount();
 
         while (resultSet.next()) {
-            for (int i = 0; i < columnCount; i++) {
+            for (int i = 1; i <= columnCount; i++) {
                 System.out.println(resultSet.getString(i) + "\t");
             }
         }

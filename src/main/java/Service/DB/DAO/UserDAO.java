@@ -9,7 +9,6 @@ import java.sql.*;
 import static Service.DB.DBManager.manager;
 
 public class UserDAO implements BaseDAO<User> {
-    private static final Logger logger = LoggerFactory.getLogger(UserDAO.class);
     PreparedStatement pst;
 
     @Override
@@ -23,25 +22,26 @@ public class UserDAO implements BaseDAO<User> {
 
             pst.executeUpdate();
 
-            logger.info("Write to table <user>");
             pst.close();
             manager.close();
 
         } catch (SQLException e) {
-            logger.error(e.getMessage());
+            e.printStackTrace();
         }
     }
 
     @Override
-    public void read() {
+    public void read(Object o) throws SQLException {
         try {
-            pst = manager.prepareStatement("SELECT * FROM users");
+            pst = manager.prepareStatement("SELECT * FROM users WHERE user_name = ?");
 
-            logger.info("Start to read <users>");
+            pst.setString(1, (String) o);
+
 
             ResultSet resultSet = pst.executeQuery();
-            ResultSetMetaData meta = resultSet.getMetaData();
-            int columnCount = meta.getColumnCount();
+            int columnCount = resultSet.
+                    getMetaData().
+                    getColumnCount();
 
             while (resultSet.next()) {
                 for (int i = 1; i <= columnCount; i++) {
@@ -52,7 +52,7 @@ public class UserDAO implements BaseDAO<User> {
             pst.close();
             manager.close();
         } catch (SQLException e) {
-            logger.error(e.getMessage());
+            e.printStackTrace();
         }
     }
 

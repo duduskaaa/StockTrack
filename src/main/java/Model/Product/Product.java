@@ -2,28 +2,27 @@ package Model.Product;
 
 public class Product {
     private int product_id;
-    private String name;
+    private String product_name;
     private Category category;
     private int amount;
 
-    public Product(int productid_id, String name, Category category, int amount) {
-        this.product_id = productid_id;
-        this.name = name;
+    public Product(String product_name, Category category, int amount) {
+        this.product_name = product_name;
         this.category = category;
         this.amount = amount;
     }
 
 
-    public String getName() {
-        return name;
+    public String getProduct_name() {
+        return product_name;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setName(String product_name) {
+        this.product_name = product_name;
     }
 
-    public Category getCategory() {
-        return category;
+    public String getCategory() {
+        return category.name();
     }
 
     public void setCategory(Category category) {
